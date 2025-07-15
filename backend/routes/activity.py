@@ -1,6 +1,10 @@
 from flask import Blueprint, request, jsonify
 from services.congress_api import fetch_rep_activity
+<<<<<<< HEAD
+from services.geocodio import fetch_reps
+=======
 from services.geocodio_api import fetch_reps
+>>>>>>> c6fb8d59cd7701d140351aba7a8069233272e7ba
 
 activity_bp = Blueprint('activity', __name__)
 
@@ -13,5 +17,28 @@ def get_activity():
     zip_code = request.args.get('zip')
     if not zip_code:
         return jsonify({"error": "missing zip code"}), 400
-    reps = fetch_reps(zip_code)
     
+    reps = fetch_reps(zip_code)
+    senators_id = []
+    congressional_districts = reps["fields"]["congressional_districts"]
+    
+    # go through each district and get the legislator (in our case its only one district but can be expanded)
+    for district in congressional_districts:
+        current_legislators = district.get("current_legislators")
+        
+        # get the current legislators that district
+        if current_legislators:
+            
+            # for each legislator check if they are a senator if they are get their id and append it to the list of ids
+            for legislator in current_legislators:
+                if legislator["type"] == "senator":
+                    references = legislator.get("references")
+                    id = references.get("bioguide_id")
+                    senators_id.append(id)
+    
+    # use every id in senators_id and append their activity and jsonify        
+    data = []
+    for id in senators_id:
+        data.append(fetch_rep_activity(id))
+    
+    return jsonify(data)
