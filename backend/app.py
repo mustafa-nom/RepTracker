@@ -8,5 +8,16 @@ app.register_blueprint(reps_bp)
 app.register_blueprint(activity_bp)
 app.register_blueprint(summarize_bp)
 
+@app.route('/')
+def home():
+    return {
+        "message": "RepTracker works!",
+        "endpoints": {
+            "representatives": "/representatives?zip=ZIPCODE",
+            "activity": "/activity?zip=ZIPCODE", 
+            "summarize": "/summarize (POST with JSON body)"
+        }
+    }
+    
 if __name__ == '__main__':
     app.run(debug=True)

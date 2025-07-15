@@ -14,7 +14,7 @@ This project allows users to find their local congressional representatives, ana
 1. clone the repo
 ```bash
 git clone https://github.com/your-username/track-your-reps.git
-cd track-your-reps/backend
+cd reptracker/backend
 ```
 2. Create local environment
 ```
