@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from services.congress_api import fetch_rep_activity
+from services.civic_api import fetch_reps
 
 activity_bp = Blueprint('activity', __name__)
 
@@ -9,3 +10,8 @@ def get_activity():
     # ex: do work
     # data = fetch_reps(rep_id)
     # return jsonify(data) 
+    zip_code = request.args.get('zip')
+    if not zip_code:
+        return jsonify({"error": "missing zip code"}), 400
+    reps = fetch_reps(zip_code)
+    
