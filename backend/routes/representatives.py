@@ -11,5 +11,5 @@ def get_current_reps():
     if not zip_code:
         return jsonify({"error": "missing zip code"}), 400
 
-    data = fetch_representatives(zip_code)
+    data = fetch_reps(zip_code)
     return jsonify(data)
