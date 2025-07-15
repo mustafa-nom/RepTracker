@@ -1,10 +1,10 @@
 # RepTracker
-Track your representatives. Hold them accountable to your vote.
+Track your representatives. Hold them accountable to your vote.  
 This project allows users to find their local congressional representatives, analyze voting records/statements, & generate AI-based summaries using Google Gemini.
 
 ## Features
 
-- Fetch representatives by ZIP code via Google Civic API
+- Fetch representatives by ZIP code via GeoCodio API
 - Retrieve voting & statement data per representative
 - Summarize long political content using Gemini API
 - Utilizes SQLite (via SQLAlchemy) for easy local storage and future expansion
@@ -32,5 +32,5 @@ pip install -r requirements.txt
 python app.py
 ```
 ### Frontend Side
-- idk since we haven't decided html or react
+- connect backend to frontend thru frontend env file
 

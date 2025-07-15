@@ -13,7 +13,7 @@ def home():
     return {
         "message": "RepTracker works!",
         "endpoints": {
-            "representatives": "/representatives?zip=ZIPCODE",
+            "representatives": "/representatives?zip=77080",
             "activity": "/activity?zip=ZIPCODE", 
             "summarize": "/summarize (POST with JSON body)"
         }
