@@ -1,5 +1,7 @@
 import requests
-import config from Config
+import json
+from config import Config
+
 # summarize text
 # Note: this is taken from our previous project code so we need to personalize it for this project 
 def summarize_text(text):
@@ -10,7 +12,7 @@ def summarize_text(text):
             {
                 "parts": [
                     {
-                        "text": f"Summarize the following text in 2-3 sentences:\n\n{article_text}"
+                        "text": f"Summarize the following text in 2-3 sentences:\n\n{text}"
                     }
                 ]
             }

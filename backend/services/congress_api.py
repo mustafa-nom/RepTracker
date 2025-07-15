@@ -6,4 +6,4 @@ def fetch_rep_activity(rep_id):
     response = requests.get(url)
     if response.status_code != 200:
         return {"error": "fetch failed for getting data on representatives"}
-    return response.json
+    return response.json()

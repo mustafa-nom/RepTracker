@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from services.congress_api import fetch_rep_activity
-from services.civic_api import fetch_reps
+from services.geocodio_api import fetch_reps
 
 activity_bp = Blueprint('activity', __name__)
 
