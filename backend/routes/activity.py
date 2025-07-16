@@ -15,7 +15,11 @@ def get_activity():
     
     reps = fetch_reps(zip_code)
     bills = []
-    congressional_districts = reps["fields"]["congressional_districts"]
+    try: 
+        congressional_districts = reps["results"][0]["fields"]["congressional_districts"]
+    except IndexError:
+        return jsonify({"error": "congressional_districts DNE"})
+
     
     # go through each district and get the legislator (in our case its only one district but can be expanded)
     for district in congressional_districts:
