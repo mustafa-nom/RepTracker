@@ -25,7 +25,7 @@ def get_current_reps():
                     if legislator.get("type") == "senator":
                         bio = legislator.get("bio", {})
                         full_name = f"{bio.get('first_name', '')} + " + f"{bio.get('last_name', '')}"
-                        poltical_party = bio.get("party", "")
+                        political_party = bio.get("party", "")
                         photo_url = bio.get("photo_url", "")
 
                         # Avoid duplicates
