@@ -24,7 +24,7 @@ def get_current_reps():
                 for legislator in district.get("current_legislators", []):
                     if legislator.get("type") == "senator":
                         bio = legislator.get("bio", {})
-                        full_name = f"{bio.get('first_name', '')} + " + f"{bio.get('last_name', '')}"
+                        full_name = f"{bio.get('first_name', '')} {bio.get('last_name', '')}"
                         political_party = bio.get("party", "")
                         photo_url = bio.get("photo_url", "")
 
