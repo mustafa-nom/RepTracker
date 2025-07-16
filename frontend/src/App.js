@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import FullBillsPage from './fullbillspage';
+import AboutPurposePage from './AboutPurposePage';
 
 function App() {
   // mock data for representatives since we're not fetching real data yet
@@ -36,6 +38,8 @@ function App() {
   ];
 
   const [filter, setFilter] = useState('');
+  const [showFullBills, setShowFullBills] = useState(false);
+  const [showAboutPage, setShowAboutPage] = useState(false);
 
   // makes anchor links scroll smoothly instead of jumping
   useEffect(() => {
@@ -52,9 +56,26 @@ function App() {
     return () => document.removeEventListener('click', handleSmoothScroll);
   }, []);
 
+  if (showFullBills) {
+    return (
+      <FullBillsPage 
+        bills={mockBills}
+        reps={mockReps}
+        onClose={() => setShowFullBills(false)}
+      />
+    );
+  }
+  
+  if (showAboutPage) {
+    return (
+      <AboutPurposePage
+        onClose={() => setShowAboutPage(false)}
+      />
+    );
+  }   
+  
   return (
     <div style={{ fontFamily: '"Times New Roman", serif' }}>
-      
       {/* hero section with search box - first thing users see */}
       <div style={{
         position: "relative",
@@ -68,7 +89,8 @@ function App() {
         padding: "6rem 2rem",
         overflow: "hidden"
       }}>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Seal_of_the_United_States_House_of_Representatives.svg/1024px-Seal_of_the_United_States_House_of_Representatives.svg.png"
+        <img 
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Seal_of_the_United_States_House_of_Representatives.svg/1024px-Seal_of_the_United_States_House_of_Representatives.svg.png"
           alt="U.S. House Seal"
           style={{
             position: "absolute",
@@ -101,7 +123,22 @@ function App() {
             textShadow: "2px 2px 4px rgba(0,0,0,0.35)"
           }}>
             Many Americans vote for congressmen and entrust them to make decisions on their behalf,
-            but can't always track every bill their congressmen vote on. This tool helps you stay informed.
+            but can't always track every bill their congressmen vote on. This tool helps you stay informed.{' '}
+            <span 
+              onClick={() => setShowAboutPage(true)}
+              style={{
+                color: "#fff",
+                fontStyle: "italic",
+                cursor: "pointer",
+                transition: "color 0.2s ease",
+                fontSize: "0.9rem",
+                textDecoration: "underline"
+              }}
+              onMouseEnter={(e) => e.target.style.color = '#a8c6ff'}
+              onMouseLeave={(e) => e.target.style.color = '#fff'}
+            >
+              Learn More
+            </span>
           </p>
           <div style={{
             background: "white",
@@ -114,7 +151,9 @@ function App() {
             <h2 style={{ color: "#1d2e8f", fontSize: "1.2rem", marginBottom: "5px" }}>Find your Representative</h2>
             <p style={{ margin: "0.3rem 0 0.8rem 0", fontSize: "0.75rem" }}>Hold Your Representative Accountable</p>
             <div style={{ display: "flex", margin: "0.5rem 0" }}>
-              <input type="text" placeholder="Input U.S. Zip Code"
+              <input 
+                type="text" 
+                placeholder="Input U.S. Zip Code"
                 style={{
                   flex: 1,
                   padding: "0.5rem 1rem",
@@ -134,12 +173,15 @@ function App() {
                 borderTopRightRadius: "4px",
                 borderBottomRightRadius: "4px",
                 cursor: "pointer"
-              }}>Search</button>
+              }}>
+                Search
+              </button>
             </div>
             <p style={{ fontSize: "0.65rem", color: "#777", margin: 0 }}>Never stored, saved, or sold.</p>
           </div>
         </div>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Flag-map_of_the_United_States.svg/2560px-Flag-map_of_the_United_States.svg.png"
+        <img 
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Flag-map_of_the_United_States.svg/2560px-Flag-map_of_the_United_States.svg.png"
           alt="USA flag map"
           style={{
             position: "absolute",
@@ -169,23 +211,32 @@ function App() {
                 ? "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Republicanlogo.svg/1200px-Republicanlogo.svg.png"
                 : "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/DemocraticLogo.svg/1200px-DemocraticLogo.svg.png";
               return (
-                <div key={idx} style={{
-                  background: "white",
-                  borderRadius: "12px",
-                  padding: "1.5rem",
-                  boxShadow: "0 6px 16px rgba(0,0,0,0.1)",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "1.2rem"
-                }}>
-                  <img src={rep.photo} alt={`${rep.name} portrait`}
+                <div 
+                  key={idx} 
+                  style={{
+                    background: "white",
+                    borderRadius: "12px",
+                    padding: "1.5rem",
+                    boxShadow: "0 6px 16px rgba(0,0,0,0.1)",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "1.2rem"
+                  }}
+                >
+                  <img 
+                    src={rep.photo} 
+                    alt={`${rep.name} portrait`}
                     style={{ width: "60px", height: "60px", borderRadius: "50%" }}
                   />
                   <div style={{ flex: 1 }}>
                     <div style={{ fontSize: "1.3rem", marginBottom: "0.2rem" }}>{rep.name}</div>
                     <div style={{ fontSize: "0.95rem", color: "#777" }}>{rep.district} • {rep.term}</div>
                     <div style={{ marginTop: "0.8rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                      <img src={emblem} alt={`${rep.party} emblem`} style={{ width: "25px", height: "25px" }} />
+                      <img 
+                        src={emblem} 
+                        alt={`${rep.party} emblem`} 
+                        style={{ width: "25px", height: "25px" }} 
+                      />
                       <div style={{ fontSize: "0.85rem", color: "#777" }}>{rep.party}</div>
                     </div>
                   </div>
@@ -196,7 +247,7 @@ function App() {
         </div>
       </div>
 
-      {/* highlights important bills at the top bc they're most relevant ? */}
+      {/* highlights important bills at the top bc they're most relevant */}
       <div style={{ background: "#F9FAFC", padding: "3rem 2rem" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -204,15 +255,20 @@ function App() {
               <h2>Key Local Bills</h2>
               <p>See how these bills impact your community</p>
             </div>
-            <a href="#all-bills" style={{
-              background: "#1d2e8f",
-              color: "white",
-              padding: "0.6rem 1.2rem",
-              borderRadius: "6px",
-              fontSize: "0.9rem",
-              textDecoration: "none",
-              height: "fit-content"
-            }}>View All Bills</a>
+            <a 
+              href="#all-bills" 
+              style={{
+                background: "#1d2e8f",
+                color: "white",
+                padding: "0.6rem 1.2rem",
+                borderRadius: "6px",
+                fontSize: "0.9rem",
+                textDecoration: "none",
+                height: "fit-content"
+              }}
+            >
+              View More Bills
+            </a>
           </div>
           <div style={{
             display: "grid",
@@ -221,14 +277,17 @@ function App() {
             marginTop: "2rem"
           }}>
             {[1, 2].map((bill) => (
-              <div key={bill} style={{
-                background: "white",
-                borderRadius: "12px",
-                boxShadow: "0 6px 16px rgba(0,0,0,0.1)",
-                padding: "1.5rem",
-                display: "flex",
-                flexDirection: "column"
-              }}>
+              <div 
+                key={bill} 
+                style={{
+                  background: "white",
+                  borderRadius: "12px",
+                  boxShadow: "0 6px 16px rgba(0,0,0,0.1)",
+                  padding: "1.5rem",
+                  display: "flex",
+                  flexDirection: "column"
+                }}
+              >
                 <div style={{ display: "flex", gap: "0.5rem", marginBottom: "1rem" }}>
                   <span style={{
                     background: "#d1c4e9",
@@ -236,14 +295,18 @@ function App() {
                     padding: "0.2rem 0.6rem",
                     borderRadius: "4px",
                     fontSize: "0.8rem"
-                  }}>High Impact</span>
+                  }}>
+                    High Impact
+                  </span>
                   <span style={{
                     background: "#c8e6c9",
                     color: "#004d40",
                     padding: "0.2rem 0.6rem",
                     borderRadius: "4px",
                     fontSize: "0.8rem"
-                  }}>Passed</span>
+                  }}>
+                    Passed
+                  </span>
                 </div>
                 <h3 style={{ margin: "0 0 0.5rem 0" }}>Infrastructure Investment and Jobs Act</h3>
                 <p style={{ fontSize: "0.95rem", color: "#555", marginBottom: "0.8rem" }}>
@@ -270,19 +333,19 @@ function App() {
         </div>
       </div>
 
-      {/* full list of all bills with filter options */}
-      <div id="all-bills" style={{ background: "#F9FAFC", padding: "3rem 2rem", fontFamily: '"Times New Roman", serif' }}>
+      {/* full list of all bills with filter and improved table */}
+      <div id="all-bills" style={{ background: "#F9FAFC", padding: "3rem 2rem" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <div>
-              <h2 style={{ fontFamily: '"Times New Roman", serif', marginBottom: "0.5rem" }}>All Bills</h2>
-              <p style={{ fontFamily: '"Times New Roman", serif', margin: 0 }}>Explore all local and national bills affecting your area.</p>
+              <h2 style={{ marginBottom: "0.5rem" }}>More Bills Affecting You</h2>
+              <p style={{ margin: 0 }}>Explore both local and national bills affecting your area</p>
             </div>
             <div style={{ position: "relative" }}>
               <select 
                 value={filter} 
                 onChange={e => setFilter(e.target.value)}
-                style={{ 
+                style={{
                   appearance: "none",
                   background: "#1d2e8f",
                   color: "white",
@@ -291,8 +354,7 @@ function App() {
                   border: "none",
                   fontSize: "0.9rem",
                   cursor: "pointer",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                  fontFamily: '"Times New Roman", serif'
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
                 }}
               >
                 <option value="">Filter By</option>
@@ -306,50 +368,87 @@ function App() {
                 top: "50%",
                 transform: "translateY(-50%)",
                 pointerEvents: "none",
-                color: "white",
-                fontFamily: '"Times New Roman", serif'
+                color: "white"
               }}>
                 ▼
               </div>
             </div>
           </div>
+
           <div style={{
             background: "white",
-            marginTop: "2rem",
+            marginTop: "3rem",
             borderRadius: "12px",
             boxShadow: "0 6px 16px rgba(0,0,0,0.1)",
-            padding: "2rem",
-            fontFamily: '"Times New Roman", serif'
+            padding: "2.5rem",
+            fontFamily: '"Times New Roman", serif',
+            overflowX: "auto"
           }}>
-            <table style={{ width: "100%", borderCollapse: "collapse", fontFamily: '"Times New Roman", serif' }}>
+            <table style={{ 
+              width: "100%", 
+              borderCollapse: "collapse",
+              fontFamily: '"Times New Roman", serif'
+            }}>
               <thead>
                 <tr style={{ background: "#f2f2f2" }}>
-                  <th style={{ padding: "0.8rem", textAlign: "left", fontFamily: '"Times New Roman", serif' }}>Title</th>
-                  <th style={{ padding: "0.8rem", textAlign: "left", fontFamily: '"Times New Roman", serif' }}>Status</th>
-                  <th style={{ padding: "0.8rem", textAlign: "left", fontFamily: '"Times New Roman", serif' }}>Impact</th>
-                  <th style={{ padding: "0.8rem", textAlign: "left", fontFamily: '"Times New Roman", serif' }}>Date</th>
-                  <th style={{ padding: "0.8rem", textAlign: "left", fontFamily: '"Times New Roman", serif' }}>Your Representatives Votes</th>
+                  <th style={{ padding: "1rem" }}>Title</th>
+                  <th style={{ padding: "1rem" }}>Status</th>
+                  <th style={{ padding: "1rem" }}>Impact</th>
+                  <th style={{ padding: "1rem", whiteSpace: "nowrap" }}>Date</th>
+                  <th style={{ 
+                    padding: "1rem",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center"
+                  }}>
+                    <span>Your Representatives Votes</span>
+                    <button 
+                      onClick={() => setShowFullBills(true)}
+                      style={{
+                        background: "#1d2e8f",
+                        color: "white",
+                        border: "none",
+                        padding: "0.4rem 1rem",
+                        borderRadius: "5px",
+                        fontSize: "0.85rem",
+                        cursor: "pointer",
+                        opacity: 0.95
+                      }}
+                    >
+                      See All Bills
+                    </button>
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {mockBills.map((bill, idx) => (
                   <tr key={idx} style={{ borderBottom: "1px solid #ddd" }}>
-                    <td style={{ padding: "0.8rem", fontFamily: '"Times New Roman", serif' }}>{bill.title}</td>
-                    <td style={{ padding: "0.8rem", fontFamily: '"Times New Roman", serif' }}>{bill.status}</td>
-                    <td style={{ padding: "0.8rem", fontFamily: '"Times New Roman", serif' }}>{bill.impact}</td>
-                    <td style={{ padding: "0.8rem", fontFamily: '"Times New Roman", serif' }}>{bill.date}</td>
-                    <td style={{ padding: "0.8rem", fontFamily: '"Times New Roman", serif' }}>
+                    <td style={{ padding: "1rem", verticalAlign: "middle" }}>{bill.title}</td>
+                    <td style={{ padding: "1rem", verticalAlign: "middle" }}>{bill.status}</td>
+                    <td style={{ padding: "1rem", verticalAlign: "middle" }}>{bill.impact}</td>
+                    <td style={{ 
+                      padding: "1rem",
+                      whiteSpace: "nowrap",
+                      verticalAlign: "middle"
+                    }}>
+                      {bill.date}
+                    </td>
+                    <td style={{ padding: "1rem", verticalAlign: "middle" }}>
                       <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
                         {mockReps.map(rep => {
                           const votedYes = Math.random() > 0.5;
                           return (
-                            <span key={rep.name} style={{
-                              background: votedYes ? "#c8e6c9" : "#ffcdd2",
-                              color: votedYes ? "#004d40" : "#c62828",
-                              padding: "0.2rem 0.6rem",
-                              borderRadius: "4px",
-                              fontSize: "0.8rem"
-                            }}>
+                            <span 
+                              key={rep.name} 
+                              style={{
+                                background: votedYes ? "#c8e6c9" : "#ffcdd2",
+                                color: votedYes ? "#004d40" : "#c62828",
+                                padding: "0.3rem 0.7rem",
+                                borderRadius: "5px",
+                                fontSize: "0.8rem",
+                                whiteSpace: "nowrap"
+                              }}
+                            >
                               {rep.name}: {votedYes ? "Yes" : "No"} {rep.party === "Republican" ? "(R)" : "(D)"}
                             </span>
                           )
@@ -364,17 +463,20 @@ function App() {
         </div>
       </div>
 
-      {/* simple footer with voter registration link */}
+      {/* footer */}
       <div style={{
         background: "#f5f5f5",
         padding: "2rem",
-        textAlign: "center"  
+        textAlign: "center"
       }}>
-        <a href="https://www.usa.gov/voter-registration" target='_blank' rel="noopener noreferrer"
-          style={{ 
-            color: "#c62828",
-            fontSize: "1rem",  
-          }}>Register to Vote Today!</a>
+        <a 
+          href="https://www.usa.gov/voter-registration" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          style={{ color: "#c62828", fontSize: "1rem" }}
+        >
+          Register to Vote Today!
+        </a>
       </div>
     </div>
   );
