@@ -39,6 +39,7 @@ class TestActivityRoute(unittest.TestCase):
         
     @patch('services.congress_api.requests.get')
     def test_fetch_rep_activity_success(self, mock_get):
+        # Mock with correct status code and return value
         mock_response = mock.Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"sponsoredLegislation": ["A", "B"]}
