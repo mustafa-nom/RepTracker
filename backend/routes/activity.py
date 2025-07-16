@@ -28,7 +28,7 @@ def get_activity():
             for legislator in current_legislators:
                 if legislator["type"] == "senator":
                     # Saves the name of the legislator
-                    name = f"{legislator["bio"]["first_name"]} {legislator["bio"]["last_name"]}"
+                    name = f"{legislator['bio']['first_name']} {legislator['bio']['last_name']}"
                     
                     # Gets the id so we can use it for fetching the activity of the bill
                     references = legislator.get("references")
