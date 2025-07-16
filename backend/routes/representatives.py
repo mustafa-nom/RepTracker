@@ -1,8 +1,8 @@
-# fetch all reps
 from flask import Blueprint, request, jsonify
 from models import db, Senator
 
 from services.geocodio_api import fetch_reps
+import re
 
 reps_bp = Blueprint('representatives', __name__)
 
