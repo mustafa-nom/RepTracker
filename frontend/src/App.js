@@ -56,6 +56,10 @@ function App() {
     return () => document.removeEventListener('click', handleSmoothScroll);
   }, []);
 
+<<<<<<< HEAD
+=======
+  // Fetch representatives from backend
+>>>>>>> damilaresbranch
   const fetchReps = async () => {
     setLoading(true);
     setError('');
@@ -74,7 +78,6 @@ function App() {
 
   return (
     <div style={{ fontFamily: '"Times New Roman", serif' }}>
-      
       {/* hero section with search box - first thing users see */}
       <div style={{
         position: "relative",
@@ -134,7 +137,11 @@ function App() {
             <h2 style={{ color: "#1d2e8f", fontSize: "1.2rem", marginBottom: "5px" }}>Find your Representative</h2>
             <p style={{ margin: "0.3rem 0 0.8rem 0", fontSize: "0.75rem" }}>Hold Your Representative Accountable</p>
             <div style={{ display: "flex", margin: "0.5rem 0" }}>
+<<<<<<< HEAD
                <input
+=======
+              <input
+>>>>>>> damilaresbranch
                 type="text"
                 placeholder="Input U.S. Zip Code"
                 value={zip}
@@ -162,9 +169,13 @@ function App() {
                 }}
                 onClick={fetchReps}
                 disabled={loading || !zip}
+<<<<<<< HEAD
               >
                 Search
               </button>
+=======
+              >Search</button>
+>>>>>>> damilaresbranch
             </div>
             <p style={{ fontSize: "0.65rem", color: "#777", margin: 0 }}>Never stored, saved, or sold.</p>
             {loading && <div style={{ color: '#c62828', marginTop: '0.5rem' }}>Loading...</div>}
@@ -229,8 +240,8 @@ function App() {
           </div>
         </div>
       </div>
-
-      {/* highlights important bills at the top bc they're most relevant ? */}
+      {/*
+      highlights important bills at the top bc they're most relevant ?
       <div style={{ background: "#F9FAFC", padding: "3rem 2rem" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -302,9 +313,9 @@ function App() {
             ))}
           </div>
         </div>
-      </div>
+      </div>*/}
 
-      {/* full list of all bills with filter options */}
+      {/*
       <div id="all-bills" style={{ background: "#F9FAFC", padding: "3rem 2rem", fontFamily: '"Times New Roman", serif' }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -396,8 +407,9 @@ function App() {
             </table>
           </div>
         </div>
-      </div>
+      </div>*/}
 
+      
       {/* simple footer with voter registration link */}
       <div style={{
         background: "#f5f5f5",

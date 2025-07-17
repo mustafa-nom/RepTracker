@@ -3,4 +3,8 @@ requests
 python-dotenv
 pygeocodio
 flask_cors
+<<<<<<< HEAD
 flask_sqlalchemy
+=======
+flask_sqlalchemy
+>>>>>>> damilaresbranch
