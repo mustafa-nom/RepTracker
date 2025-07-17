@@ -20,21 +20,12 @@ def get_current_reps():
             state = result.get("address_components", {}).get("state", "") #get the state
             districts = result.get("fields", {}).get("congressional_districts", []) #get the districts
 
-<<<<<<< HEAD
-            for district in districts:
-                for legislator in district.get("current_legislators", []):
-                    if legislator.get("type") == "senator":
-                        bio = legislator.get("bio", {})
-                        full_name = f"{bio.get('first_name', '')} {bio.get('last_name', '')}"
-                        political_party = bio.get("party", "")
-=======
             for district in districts: #iterate through the districts
                 for legislator in district.get("current_legislators", []): #iterate through the legislators
                     if legislator.get("type") == "senator": #check if the legislator is a senator
                         bio = legislator.get("bio", {}) #get the bio
                         full_name = f"{bio.get('first_name', '')} {bio.get('last_name', '')}" #get the full name
                         party = bio.get("party", "")
->>>>>>> damilaresbranch
                         photo_url = bio.get("photo_url", "")
 
                         # Avoid duplicates

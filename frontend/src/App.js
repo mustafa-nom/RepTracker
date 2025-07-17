@@ -56,10 +56,7 @@ function App() {
     return () => document.removeEventListener('click', handleSmoothScroll);
   }, []);
 
-<<<<<<< HEAD
-=======
   // Fetch representatives from backend
->>>>>>> damilaresbranch
   const fetchReps = async () => {
     setLoading(true);
     setError('');
@@ -137,11 +134,7 @@ function App() {
             <h2 style={{ color: "#1d2e8f", fontSize: "1.2rem", marginBottom: "5px" }}>Find your Representative</h2>
             <p style={{ margin: "0.3rem 0 0.8rem 0", fontSize: "0.75rem" }}>Hold Your Representative Accountable</p>
             <div style={{ display: "flex", margin: "0.5rem 0" }}>
-<<<<<<< HEAD
-               <input
-=======
               <input
->>>>>>> damilaresbranch
                 type="text"
                 placeholder="Input U.S. Zip Code"
                 value={zip}
@@ -169,13 +162,7 @@ function App() {
                 }}
                 onClick={fetchReps}
                 disabled={loading || !zip}
-<<<<<<< HEAD
-              >
-                Search
-              </button>
-=======
               >Search</button>
->>>>>>> damilaresbranch
             </div>
             <p style={{ fontSize: "0.65rem", color: "#777", margin: 0 }}>Never stored, saved, or sold.</p>
             {loading && <div style={{ color: '#c62828', marginTop: '0.5rem' }}>Loading...</div>}
@@ -195,7 +182,7 @@ function App() {
           }}
         />
       </div>
-
+    
       {/* shows the user's local representatives in cards */}
       <div style={{ background: "#F9FAFC", padding: "3rem 2rem" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
@@ -408,8 +395,26 @@ function App() {
           </div>
         </div>
       </div>*/}
-
-      
+    {reps.length > 0 && !loading && !error && (
+      <div style={{
+        background: "#f5f5f5",
+        margin: "0 auto",
+        textAlign: "center"
+      }}>
+        <a href ="/activity"
+        style={
+          {
+            display: "inline-block",
+            background:"blue",
+            color: "white",
+            padding: "1.2rem 3rem",
+            fontWeight: "bold",
+            outlineWidth: "4px"
+          }
+        }
+        >Show All Bills</a>
+        </div>
+    )}
       {/* simple footer with voter registration link */}
       <div style={{
         background: "#f5f5f5",
