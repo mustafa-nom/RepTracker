@@ -8,7 +8,7 @@ This project allows users to find their local congressional representatives, ana
 - Retrieve voting & statement data per representative
 - Summarize long political content using Gemini API
 - Utilizes SQLite (via SQLAlchemy) for easy local storage and future expansion
-### NOTE ^ decide what DB to use here sqlite or supabase
+- React frontend with API integration & real-time results
 
 ## 🛠️ Setup Instructions
 1. clone the repo
@@ -32,5 +32,16 @@ pip install -r requirements.txt
 python app.py
 ```
 ### Frontend Side
-- connect backend to frontend thru frontend env file
+1. Navigate to frontend directory
+```
+cd ../frontend
+```
+2. Install frontend dependencies
+```
+npm install
+```
+3. Start the server
+```
+npm run dev
+```
 
