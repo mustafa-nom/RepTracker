@@ -36,6 +36,10 @@ function App() {
   ];
 
   const [filter, setFilter] = useState('');
+  const [zip, setZip] = useState('');
+  const [reps, setReps] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   // makes anchor links scroll smoothly instead of jumping
   useEffect(() => {
@@ -51,6 +55,22 @@ function App() {
     document.addEventListener('click', handleSmoothScroll);
     return () => document.removeEventListener('click', handleSmoothScroll);
   }, []);
+
+  const fetchReps = async () => {
+    setLoading(true);
+    setError('');
+    setReps([]);
+    try {
+      const response = await fetch(`http://localhost:5000/representatives?zip=${zip}`);
+      if (!response.ok) throw new Error('Failed to fetch representatives');
+      const data = await response.json();
+      setReps(data.results || []);
+    } catch (err) {
+      setError('Failed to fetch representatives.');
+      setReps([]);
+    }
+    setLoading(false);
+  };
 
   return (
     <div style={{ fontFamily: '"Times New Roman", serif' }}>
@@ -114,7 +134,11 @@ function App() {
             <h2 style={{ color: "#1d2e8f", fontSize: "1.2rem", marginBottom: "5px" }}>Find your Representative</h2>
             <p style={{ margin: "0.3rem 0 0.8rem 0", fontSize: "0.75rem" }}>Hold Your Representative Accountable</p>
             <div style={{ display: "flex", margin: "0.5rem 0" }}>
-              <input type="text" placeholder="Input U.S. Zip Code"
+               <input
+                type="text"
+                placeholder="Input U.S. Zip Code"
+                value={zip}
+                onChange={e => setZip(e.target.value)}
                 style={{
                   flex: 1,
                   padding: "0.5rem 1rem",
@@ -125,18 +149,26 @@ function App() {
                   outline: "none"
                 }}
               />
-              <button style={{
-                background: "#c62828",
-                color: "white",
-                border: "none",
-                padding: "0 1.2rem",
-                fontSize: "1rem",
-                borderTopRightRadius: "4px",
-                borderBottomRightRadius: "4px",
-                cursor: "pointer"
-              }}>Search</button>
+              <button
+                style={{
+                  background: "#c62828",
+                  color: "white",
+                  border: "none",
+                  padding: "0 1.2rem",
+                  fontSize: "1rem",
+                  borderTopRightRadius: "4px",
+                  borderBottomRightRadius: "4px",
+                  cursor: "pointer"
+                }}
+                onClick={fetchReps}
+                disabled={loading || !zip}
+              >
+                Search
+              </button>
             </div>
             <p style={{ fontSize: "0.65rem", color: "#777", margin: 0 }}>Never stored, saved, or sold.</p>
+            {loading && <div style={{ color: '#c62828', marginTop: '0.5rem' }}>Loading...</div>}
+            {error && <div style={{ color: '#c62828', marginTop: '0.5rem' }}>{error}</div>}
           </div>
         </div>
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Flag-map_of_the_United_States.svg/2560px-Flag-map_of_the_United_States.svg.png"
@@ -164,7 +196,7 @@ function App() {
             gap: "2rem",
             marginTop: "2rem"
           }}>
-            {mockReps.map((rep, idx) => {
+            {(reps.length > 0 ? reps : mockReps).map((rep, idx) => {
               const emblem = rep.party === "Republican"
                 ? "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Republicanlogo.svg/1200px-Republicanlogo.svg.png"
                 : "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/DemocraticLogo.svg/1200px-DemocraticLogo.svg.png";
@@ -178,12 +210,14 @@ function App() {
                   alignItems: "center",
                   gap: "1.2rem"
                 }}>
-                  <img src={rep.photo} alt={`${rep.name} portrait`}
+                  <img src={rep.photo_url || rep.photo} alt={`${rep.name} portrait`}
                     style={{ width: "60px", height: "60px", borderRadius: "50%" }}
                   />
                   <div style={{ flex: 1 }}>
                     <div style={{ fontSize: "1.3rem", marginBottom: "0.2rem" }}>{rep.name}</div>
-                    <div style={{ fontSize: "0.95rem", color: "#777" }}>{rep.district} • {rep.term}</div>
+                    {rep.district && rep.term && (
+                      <div style={{ fontSize: "0.95rem", color: "#777" }}>{rep.district} • {rep.term}</div>
+                    )}
                     <div style={{ marginTop: "0.8rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
                       <img src={emblem} alt={`${rep.party} emblem`} style={{ width: "25px", height: "25px" }} />
                       <div style={{ fontSize: "0.85rem", color: "#777" }}>{rep.party}</div>
