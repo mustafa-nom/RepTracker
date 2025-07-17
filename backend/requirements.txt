@@ -2,4 +2,5 @@ Flask
 requests
 python-dotenv
 pygeocodio
-flask-cors
+flask_cors
+flask_sqlalchemy

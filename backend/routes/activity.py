@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from services.congress_api import fetch_rep_activity
+from services.congress_api import fetch_rep_activity, get_bill_summary
 from services.geocodio_api import fetch_reps
 
 activity_bp = Blueprint('activity', __name__)
@@ -15,7 +15,11 @@ def get_activity():
     
     reps = fetch_reps(zip_code)
     bills = []
-    congressional_districts = reps["fields"]["congressional_districts"]
+    try: 
+        congressional_districts = reps["results"][0]["fields"]["congressional_districts"]
+    except IndexError:
+        return jsonify({"error": "congressional_districts DNE"})
+
     
     # go through each district and get the legislator (in our case its only one district but can be expanded)
     for district in congressional_districts:
@@ -37,7 +41,15 @@ def get_activity():
                     # Gets the bills
                     sponsored_legislation = fetch_rep_activity(id)
                     legislation_array = sponsored_legislation["sponsoredLegislation"]
-                
+
+                    # Get the summary of each bill
+                    for bill in legislation_array:
+                        congress = bill["congress"]
+                        bill_id = bill["number"]
+                        type = bill["type"]
+                        summary = get_bill_summary(congress, type, bill_id)
+                        bill["summary"] = summary
+                        
                     # Append the name and bills. The bills array will hold a dictionary of the name and bills of each senator.
                     bills.append({
                         "name": name,
