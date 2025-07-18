@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import FullBillsPage from './fullbillspage';
 import AboutPurposePage from './AboutPurposePage';
+import ChatbotPage from './ChatBot'; 
 
 function App() {
-  // mock data for representatives since we're not fetching real data yet
   const mockReps = [
     {
       name: "Rep. Glenn Thompson",
@@ -40,6 +40,7 @@ function App() {
   const [filter, setFilter] = useState('');
   const [showFullBills, setShowFullBills] = useState(false);
   const [showAboutPage, setShowAboutPage] = useState(false);
+  const [showChatbot, setShowChatbot] = useState(false); 
 
   // makes anchor links scroll smoothly instead of jumping
   useEffect(() => {
@@ -65,15 +66,31 @@ function App() {
       />
     );
   }
-  
+
   if (showAboutPage) {
     return (
       <AboutPurposePage
         onClose={() => setShowAboutPage(false)}
       />
     );
-  }   
-  
+  }
+
+  if (showChatbot) {
+    return (
+      <ChatbotPage 
+        onClose={() => setShowChatbot(false)}
+        onShowFullBills={() => {
+          setShowChatbot(false);
+          setShowFullBills(true);
+        }}
+        onShowPurpose={() => {
+          setShowChatbot(false);
+          setShowAboutPage(true);
+        }}
+      />
+    );
+  }
+
   return (
     <div style={{ fontFamily: '"Times New Roman", serif' }}>
       {/* hero section with search box - first thing users see */}
@@ -89,6 +106,56 @@ function App() {
         padding: "6rem 2rem",
         overflow: "hidden"
       }}>
+        <nav style={{
+          position: "absolute",
+          top: "1.5rem",
+          left: "2rem",
+          display: "flex",
+          gap: "1.5rem",
+          fontSize: "0.95rem",
+          fontStyle: "italic"
+        }}>
+          <span style={{ color: "#a8c6ff", textDecoration: "underline", cursor: "default" }}>Home</span>
+          <span 
+            onClick={() => setShowFullBills(true)} 
+            style={{ 
+              color: "#fff", 
+              cursor: "pointer", 
+              textDecoration: "none",
+              transition: "color 0.2s ease"
+            }}
+            onMouseEnter={(e) => e.target.style.color = '#a8c6ff'}
+            onMouseLeave={(e) => e.target.style.color = '#fff'}
+          >
+            Full Bills
+          </span>
+          <span 
+            onClick={() => setShowAboutPage(true)} 
+            style={{ 
+              color: "#fff", 
+              cursor: "pointer", 
+              textDecoration: "none",
+              transition: "color 0.2s ease"
+            }}
+            onMouseEnter={(e) => e.target.style.color = '#a8c6ff'}
+            onMouseLeave={(e) => e.target.style.color = '#fff'}
+          >
+            Purpose
+          </span>
+          <span 
+            onClick={() => setShowChatbot(true)} 
+            style={{ 
+              color: "#fff", 
+              cursor: "pointer", 
+              textDecoration: "none",
+              transition: "color 0.2s ease"
+            }}
+            onMouseEnter={(e) => e.target.style.color = '#a8c6ff'}
+            onMouseLeave={(e) => e.target.style.color = '#fff'}
+          >
+            Chatbot
+          </span>
+        </nav>
         <img 
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Seal_of_the_United_States_House_of_Representatives.svg/1024px-Seal_of_the_United_States_House_of_Representatives.svg.png"
           alt="U.S. House Seal"
