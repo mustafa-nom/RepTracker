@@ -5,37 +5,6 @@ import AboutPurposePage from './AboutPurposePage';
 import ChatbotPage from './ChatBot'; 
 
 function App() {
-  const mockReps = [
-    {
-      name: "Rep. Glenn Thompson",
-      district: "PA-15",
-      term: "2019-2021",
-      party: "Republican",
-      photo: "https://via.placeholder.com/80"
-    },
-    {
-      name: "Rep. Sarah Williams",
-      district: "NY-03",
-      term: "2021-2023",
-      party: "Democrat",
-      photo: "https://via.placeholder.com/80"
-    },
-    {
-      name: "Rep. Alex Martinez",
-      district: "CA-12",
-      term: "2018-2020",
-      party: "Republican",
-      photo: "https://via.placeholder.com/80"
-    }
-  ];
-
-  // mock data for bills to show how they'd display
-  const mockBills = [
-    { title: "Clean Energy Act", status: "Passed", impact: "High", date: "2025-05-10" },
-    { title: "Healthcare Expansion", status: "Failed", impact: "Low", date: "2025-04-21" },
-    { title: "Tax Reform Bill", status: "Passed", impact: "High", date: "2025-03-30" },
-    { title: "Education Grant Funding", status: "Pending", impact: "Medium", date: "2025-02-15" }
-  ];
 
   const [filter, setFilter] = useState('');
   const [showFullBills, setShowFullBills] = useState(false);
