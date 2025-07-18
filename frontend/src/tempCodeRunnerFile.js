@@ -75,7 +75,7 @@ function App() {
 
   return (
     <div style={{ fontFamily: '"Times New Roman", serif' }}>
-      {/* hero section with search box - first thing users see */
+      {/* hero section with search box - first thing users see */}
       <div style={{
         position: "relative",
         backgroundImage: `
@@ -182,7 +182,7 @@ function App() {
           }}
         />
       </div>
-}
+
       {/* shows the user's local representatives in cards */}
       <div style={{ background: "#F9FAFC", padding: "3rem 2rem" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
@@ -227,8 +227,8 @@ function App() {
           </div>
         </div>
       </div>
-      {/*
-      highlights important bills at the top bc they're most relevant ?
+
+      {/* highlights important bills at the top bc they're most relevant ? */}
       <div style={{ background: "#F9FAFC", padding: "3rem 2rem" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -300,9 +300,9 @@ function App() {
             ))}
           </div>
         </div>
-      </div>*/}
+      </div>
 
-      {/*
+      {/* full list of all bills with filter options */}
       <div id="all-bills" style={{ background: "#F9FAFC", padding: "3rem 2rem", fontFamily: '"Times New Roman", serif' }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -394,9 +394,8 @@ function App() {
             </table>
           </div>
         </div>
-      </div>*/}
+      </div>
 
-      
       {/* simple footer with voter registration link */}
       <div style={{
         background: "#f5f5f5",
