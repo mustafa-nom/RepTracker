@@ -6,7 +6,7 @@ import re
 
 reps_bp = Blueprint('representatives', __name__)
 
-# return current reps in json format from user zip code
+
 @reps_bp.route('/representatives')
 def get_current_reps():
     zip_code = request.args.get('zip')
