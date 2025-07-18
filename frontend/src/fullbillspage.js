@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const FullBillsPage = ({ bills, reps, onClose }) => {
+const FullBillsPage = ({ bills = [], reps = [], onClose }) => {
   const [filter, setFilter] = useState('');
 
   return (
@@ -173,7 +173,7 @@ const FullBillsPage = ({ bills, reps, onClose }) => {
               </tr>
             </thead>
             <tbody>
-              {bills.map((bill, idx) => (
+            {(bills || []).map((bill, idx) => (
                 <tr key={idx} style={{ borderBottom: '1px solid #ddd' }}>
                   <td style={{ padding: '1rem' }}>{bill.title}</td>
                   <td style={{ padding: '1rem' }}>{bill.status}</td>
@@ -184,7 +184,7 @@ const FullBillsPage = ({ bills, reps, onClose }) => {
                   </td>
                   <td style={{ padding: '1rem' }}>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                      {reps.map(rep => {
+                    {(reps || []).map(rep => {
                         const votedYes = Math.random() > 0.5;
                         return (
                           <span key={rep.name} style={{

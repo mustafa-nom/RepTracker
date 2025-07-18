@@ -42,6 +42,10 @@ function App() {
   const [reps, setReps] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [showFullBills, setShowFullBills] = useState(false);
+const [showAboutPage, setShowAboutPage] = useState(false);
+const [showChatbot, setShowChatbot] = useState(false);
+
 
   // makes anchor links scroll smoothly instead of jumping
   useEffect(() => {
@@ -74,7 +78,9 @@ function App() {
     }
     setLoading(false);
   };
-
+  if (showFullBills) return <FullBillsPage />;
+  if (showAboutPage) return <AboutPurposePage />;
+  if (showChatbot) return <ChatbotPage />;
   return (
     <div style={{ fontFamily: '"Times New Roman", serif' }}>
       {/* hero section with search box - first thing users see */
