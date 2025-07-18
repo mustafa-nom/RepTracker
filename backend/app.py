@@ -7,6 +7,7 @@ from routes.representatives import reps_bp
 from routes.activity import activity_bp
 from routes.summarize import summarize_bp
 from routes.senators import senators_bp
+
 app = Flask(__name__)
 CORS(app)
 
