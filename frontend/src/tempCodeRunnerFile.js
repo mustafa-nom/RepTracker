@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import FullBillsPage from './fullbillspage';
-import AboutPurposePage from './AboutPurposePage';
-import ChatbotPage from './ChatBot'; 
 
 function App() {
+  // mock data for representatives since we're not fetching real data yet
   const mockReps = [
     {
       name: "Rep. Glenn Thompson",
@@ -42,10 +40,6 @@ function App() {
   const [reps, setReps] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [showFullBills, setShowFullBills] = useState(false);
-const [showAboutPage, setShowAboutPage] = useState(false);
-const [showChatbot, setShowChatbot] = useState(false);
-
 
   // makes anchor links scroll smoothly instead of jumping
   useEffect(() => {
@@ -78,12 +72,10 @@ const [showChatbot, setShowChatbot] = useState(false);
     }
     setLoading(false);
   };
-  if (showFullBills) return <FullBillsPage />;
-  if (showAboutPage) return <AboutPurposePage />;
-  if (showChatbot) return <ChatbotPage />;
+
   return (
     <div style={{ fontFamily: '"Times New Roman", serif' }}>
-      {/* hero section with search box - first thing users see */
+      {/* hero section with search box - first thing users see */}
       <div style={{
         position: "relative",
         backgroundImage: `
@@ -96,58 +88,7 @@ const [showChatbot, setShowChatbot] = useState(false);
         padding: "6rem 2rem",
         overflow: "hidden"
       }}>
-        <nav style={{
-          position: "absolute",
-          top: "1.5rem",
-          left: "2rem",
-          display: "flex",
-          gap: "1.5rem",
-          fontSize: "0.95rem",
-          fontStyle: "italic"
-        }}>
-          <span style={{ color: "#a8c6ff", textDecoration: "underline", cursor: "default" }}>Home</span>
-          <span 
-            onClick={() => setShowFullBills(true)} 
-            style={{ 
-              color: "#fff", 
-              cursor: "pointer", 
-              textDecoration: "none",
-              transition: "color 0.2s ease"
-            }}
-            onMouseEnter={(e) => e.target.style.color = '#a8c6ff'}
-            onMouseLeave={(e) => e.target.style.color = '#fff'}
-          >
-            Full Bills
-          </span>
-          <span 
-            onClick={() => setShowAboutPage(true)} 
-            style={{ 
-              color: "#fff", 
-              cursor: "pointer", 
-              textDecoration: "none",
-              transition: "color 0.2s ease"
-            }}
-            onMouseEnter={(e) => e.target.style.color = '#a8c6ff'}
-            onMouseLeave={(e) => e.target.style.color = '#fff'}
-          >
-            Purpose
-          </span>
-          <span 
-            onClick={() => setShowChatbot(true)} 
-            style={{ 
-              color: "#fff", 
-              cursor: "pointer", 
-              textDecoration: "none",
-              transition: "color 0.2s ease"
-            }}
-            onMouseEnter={(e) => e.target.style.color = '#a8c6ff'}
-            onMouseLeave={(e) => e.target.style.color = '#fff'}
-          >
-            Chatbot
-          </span>
-        </nav>
-        <img 
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Seal_of_the_United_States_House_of_Representatives.svg/1024px-Seal_of_the_United_States_House_of_Representatives.svg.png"
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Seal_of_the_United_States_House_of_Representatives.svg/1024px-Seal_of_the_United_States_House_of_Representatives.svg.png"
           alt="U.S. House Seal"
           style={{
             position: "absolute",
@@ -180,22 +121,7 @@ const [showChatbot, setShowChatbot] = useState(false);
             textShadow: "2px 2px 4px rgba(0,0,0,0.35)"
           }}>
             Many Americans vote for congressmen and entrust them to make decisions on their behalf,
-            but can't always track every bill their congressmen vote on. This tool helps you stay informed.{' '}
-            <span 
-              onClick={() => setShowAboutPage(true)}
-              style={{
-                color: "#fff",
-                fontStyle: "italic",
-                cursor: "pointer",
-                transition: "color 0.2s ease",
-                fontSize: "0.9rem",
-                textDecoration: "underline"
-              }}
-              onMouseEnter={(e) => e.target.style.color = '#a8c6ff'}
-              onMouseLeave={(e) => e.target.style.color = '#fff'}
-            >
-              Learn More
-            </span>
+            but can't always track every bill their congressmen vote on. This tool helps you stay informed.
           </p>
           <div style={{
             background: "white",
@@ -243,8 +169,7 @@ const [showChatbot, setShowChatbot] = useState(false);
             {error && <div style={{ color: '#c62828', marginTop: '0.5rem' }}>{error}</div>}
           </div>
         </div>
-        <img 
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Flag-map_of_the_United_States.svg/2560px-Flag-map_of_the_United_States.svg.png"
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Flag-map_of_the_United_States.svg/2560px-Flag-map_of_the_United_States.svg.png"
           alt="USA flag map"
           style={{
             position: "absolute",
@@ -257,7 +182,7 @@ const [showChatbot, setShowChatbot] = useState(false);
           }}
         />
       </div>
-    }
+
       {/* shows the user's local representatives in cards */}
       <div style={{ background: "#F9FAFC", padding: "3rem 2rem" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
@@ -292,11 +217,7 @@ const [showChatbot, setShowChatbot] = useState(false);
                       <div style={{ fontSize: "0.95rem", color: "#777" }}>{rep.district} • {rep.term}</div>
                     )}
                     <div style={{ marginTop: "0.8rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                      <img 
-                        src={emblem} 
-                        alt={`${rep.party} emblem`} 
-                        style={{ width: "25px", height: "25px" }} 
-                      />
+                      <img src={emblem} alt={`${rep.party} emblem`} style={{ width: "25px", height: "25px" }} />
                       <div style={{ fontSize: "0.85rem", color: "#777" }}>{rep.party}</div>
                     </div>
                   </div>
@@ -306,8 +227,8 @@ const [showChatbot, setShowChatbot] = useState(false);
           </div>
         </div>
       </div>
-      {/*
-      highlights important bills at the top bc they're most relevant ?
+
+      {/* highlights important bills at the top bc they're most relevant ? */}
       <div style={{ background: "#F9FAFC", padding: "3rem 2rem" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -315,20 +236,15 @@ const [showChatbot, setShowChatbot] = useState(false);
               <h2>Key Local Bills</h2>
               <p>See how these bills impact your community</p>
             </div>
-            <a 
-              href="#all-bills" 
-              style={{
-                background: "#1d2e8f",
-                color: "white",
-                padding: "0.6rem 1.2rem",
-                borderRadius: "6px",
-                fontSize: "0.9rem",
-                textDecoration: "none",
-                height: "fit-content"
-              }}
-            >
-              View More Bills
-            </a>
+            <a href="#all-bills" style={{
+              background: "#1d2e8f",
+              color: "white",
+              padding: "0.6rem 1.2rem",
+              borderRadius: "6px",
+              fontSize: "0.9rem",
+              textDecoration: "none",
+              height: "fit-content"
+            }}>View All Bills</a>
           </div>
           <div style={{
             display: "grid",
@@ -337,17 +253,14 @@ const [showChatbot, setShowChatbot] = useState(false);
             marginTop: "2rem"
           }}>
             {[1, 2].map((bill) => (
-              <div 
-                key={bill} 
-                style={{
-                  background: "white",
-                  borderRadius: "12px",
-                  boxShadow: "0 6px 16px rgba(0,0,0,0.1)",
-                  padding: "1.5rem",
-                  display: "flex",
-                  flexDirection: "column"
-                }}
-              >
+              <div key={bill} style={{
+                background: "white",
+                borderRadius: "12px",
+                boxShadow: "0 6px 16px rgba(0,0,0,0.1)",
+                padding: "1.5rem",
+                display: "flex",
+                flexDirection: "column"
+              }}>
                 <div style={{ display: "flex", gap: "0.5rem", marginBottom: "1rem" }}>
                   <span style={{
                     background: "#d1c4e9",
@@ -355,18 +268,14 @@ const [showChatbot, setShowChatbot] = useState(false);
                     padding: "0.2rem 0.6rem",
                     borderRadius: "4px",
                     fontSize: "0.8rem"
-                  }}>
-                    High Impact
-                  </span>
+                  }}>High Impact</span>
                   <span style={{
                     background: "#c8e6c9",
                     color: "#004d40",
                     padding: "0.2rem 0.6rem",
                     borderRadius: "4px",
                     fontSize: "0.8rem"
-                  }}>
-                    Passed
-                  </span>
+                  }}>Passed</span>
                 </div>
                 <h3 style={{ margin: "0 0 0.5rem 0" }}>Infrastructure Investment and Jobs Act</h3>
                 <p style={{ fontSize: "0.95rem", color: "#555", marginBottom: "0.8rem" }}>
@@ -391,21 +300,21 @@ const [showChatbot, setShowChatbot] = useState(false);
             ))}
           </div>
         </div>
-      </div>*/}
+      </div>
 
-      {/*
+      {/* full list of all bills with filter options */}
       <div id="all-bills" style={{ background: "#F9FAFC", padding: "3rem 2rem", fontFamily: '"Times New Roman", serif' }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <div>
-              <h2 style={{ marginBottom: "0.5rem" }}>More Bills Affecting You</h2>
-              <p style={{ margin: 0 }}>Explore both local and national bills affecting your area</p>
+              <h2 style={{ fontFamily: '"Times New Roman", serif', marginBottom: "0.5rem" }}>All Bills</h2>
+              <p style={{ fontFamily: '"Times New Roman", serif', margin: 0 }}>Explore all local and national bills affecting your area.</p>
             </div>
             <div style={{ position: "relative" }}>
               <select 
                 value={filter} 
                 onChange={e => setFilter(e.target.value)}
-                style={{
+                style={{ 
                   appearance: "none",
                   background: "#1d2e8f",
                   color: "white",
@@ -414,7 +323,8 @@ const [showChatbot, setShowChatbot] = useState(false);
                   border: "none",
                   fontSize: "0.9rem",
                   cursor: "pointer",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                  fontFamily: '"Times New Roman", serif'
                 }}
               >
                 <option value="">Filter By</option>
@@ -428,87 +338,50 @@ const [showChatbot, setShowChatbot] = useState(false);
                 top: "50%",
                 transform: "translateY(-50%)",
                 pointerEvents: "none",
-                color: "white"
+                color: "white",
+                fontFamily: '"Times New Roman", serif'
               }}>
                 ▼
               </div>
             </div>
           </div>
-
           <div style={{
             background: "white",
-            marginTop: "3rem",
+            marginTop: "2rem",
             borderRadius: "12px",
             boxShadow: "0 6px 16px rgba(0,0,0,0.1)",
-            padding: "2.5rem",
-            fontFamily: '"Times New Roman", serif',
-            overflowX: "auto"
+            padding: "2rem",
+            fontFamily: '"Times New Roman", serif'
           }}>
-            <table style={{ 
-              width: "100%", 
-              borderCollapse: "collapse",
-              fontFamily: '"Times New Roman", serif'
-            }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", fontFamily: '"Times New Roman", serif' }}>
               <thead>
                 <tr style={{ background: "#f2f2f2" }}>
-                  <th style={{ padding: "1rem" }}>Title</th>
-                  <th style={{ padding: "1rem" }}>Status</th>
-                  <th style={{ padding: "1rem" }}>Impact</th>
-                  <th style={{ padding: "1rem", whiteSpace: "nowrap" }}>Date</th>
-                  <th style={{ 
-                    padding: "1rem",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center"
-                  }}>
-                    <span>Your Representatives Votes</span>
-                    <button 
-                      onClick={() => setShowFullBills(true)}
-                      style={{
-                        background: "#1d2e8f",
-                        color: "white",
-                        border: "none",
-                        padding: "0.4rem 1rem",
-                        borderRadius: "5px",
-                        fontSize: "0.85rem",
-                        cursor: "pointer",
-                        opacity: 0.95
-                      }}
-                    >
-                      See All Bills
-                    </button>
-                  </th>
+                  <th style={{ padding: "0.8rem", textAlign: "left", fontFamily: '"Times New Roman", serif' }}>Title</th>
+                  <th style={{ padding: "0.8rem", textAlign: "left", fontFamily: '"Times New Roman", serif' }}>Status</th>
+                  <th style={{ padding: "0.8rem", textAlign: "left", fontFamily: '"Times New Roman", serif' }}>Impact</th>
+                  <th style={{ padding: "0.8rem", textAlign: "left", fontFamily: '"Times New Roman", serif' }}>Date</th>
+                  <th style={{ padding: "0.8rem", textAlign: "left", fontFamily: '"Times New Roman", serif' }}>Your Representatives Votes</th>
                 </tr>
               </thead>
               <tbody>
                 {mockBills.map((bill, idx) => (
                   <tr key={idx} style={{ borderBottom: "1px solid #ddd" }}>
-                    <td style={{ padding: "1rem", verticalAlign: "middle" }}>{bill.title}</td>
-                    <td style={{ padding: "1rem", verticalAlign: "middle" }}>{bill.status}</td>
-                    <td style={{ padding: "1rem", verticalAlign: "middle" }}>{bill.impact}</td>
-                    <td style={{ 
-                      padding: "1rem",
-                      whiteSpace: "nowrap",
-                      verticalAlign: "middle"
-                    }}>
-                      {bill.date}
-                    </td>
-                    <td style={{ padding: "1rem", verticalAlign: "middle" }}>
+                    <td style={{ padding: "0.8rem", fontFamily: '"Times New Roman", serif' }}>{bill.title}</td>
+                    <td style={{ padding: "0.8rem", fontFamily: '"Times New Roman", serif' }}>{bill.status}</td>
+                    <td style={{ padding: "0.8rem", fontFamily: '"Times New Roman", serif' }}>{bill.impact}</td>
+                    <td style={{ padding: "0.8rem", fontFamily: '"Times New Roman", serif' }}>{bill.date}</td>
+                    <td style={{ padding: "0.8rem", fontFamily: '"Times New Roman", serif' }}>
                       <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
                         {mockReps.map(rep => {
                           const votedYes = Math.random() > 0.5;
                           return (
-                            <span 
-                              key={rep.name} 
-                              style={{
-                                background: votedYes ? "#c8e6c9" : "#ffcdd2",
-                                color: votedYes ? "#004d40" : "#c62828",
-                                padding: "0.3rem 0.7rem",
-                                borderRadius: "5px",
-                                fontSize: "0.8rem",
-                                whiteSpace: "nowrap"
-                              }}
-                            >
+                            <span key={rep.name} style={{
+                              background: votedYes ? "#c8e6c9" : "#ffcdd2",
+                              color: votedYes ? "#004d40" : "#c62828",
+                              padding: "0.2rem 0.6rem",
+                              borderRadius: "4px",
+                              fontSize: "0.8rem"
+                            }}>
                               {rep.name}: {votedYes ? "Yes" : "No"} {rep.party === "Republican" ? "(R)" : "(D)"}
                             </span>
                           )
@@ -521,41 +394,19 @@ const [showChatbot, setShowChatbot] = useState(false);
             </table>
           </div>
         </div>
-      </div>*/}
-    {reps.length > 0 && !loading && !error && (
-      <div style={{
-        background: "#f5f5f5",
-        margin: "0 auto",
-        textAlign: "center"
-      }}>
-        <a href ="/activity"
-        style={
-          {
-            display: "inline-block",
-            background:"blue",
-            color: "white",
-            padding: "1.2rem 3rem",
-            fontWeight: "bold",
-            outlineWidth: "4px"
-          }
-        }
-        >Show All Bills</a>
-        </div>
-    )}
+      </div>
+
       {/* simple footer with voter registration link */}
       <div style={{
         background: "#f5f5f5",
         padding: "2rem",
-        textAlign: "center"
+        textAlign: "center"  
       }}>
-        <a 
-          href="https://www.usa.gov/voter-registration" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          style={{ color: "#c62828", fontSize: "1rem" }}
-        >
-          Register to Vote Today!
-        </a>
+        <a href="https://www.usa.gov/voter-registration" target='_blank' rel="noopener noreferrer"
+          style={{ 
+            color: "#c62828",
+            fontSize: "1rem",  
+          }}>Register to Vote Today!</a>
       </div>
     </div>
   );
