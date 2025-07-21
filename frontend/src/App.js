@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import FullBillsPage from './fullbillspage';
+import FullBillsPage from './BillsPage';
 import AboutPurposePage from './AboutPurposePage';
 import ChatbotPage from './ChatBot'; 
 
@@ -71,7 +71,8 @@ const [showChatbot, setShowChatbot] = useState(false);
       const response = await fetch(`http://localhost:5000/representatives?zip=${zip}`);
       if (!response.ok) throw new Error('Failed to fetch representatives');
       const data = await response.json();
-      setReps(data.results || []);
+      const allReps = [...(data.senators || []), ...(data.representatives || [])];
+      setReps(allReps);
     } catch (err) {
       setError('Failed to fetch representatives.');
       setReps([]);

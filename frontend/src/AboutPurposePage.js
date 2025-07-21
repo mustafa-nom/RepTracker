@@ -105,11 +105,7 @@ const AboutPurposePage = ({ onClose }) => {
             Our platform bridges that gap by making it easy to see exactly how your local lawmakers vote, 
             empowering you to make informed decisions and engage in democracy.
           </p>
-          <p style={{ fontSize: "1.1rem", color: "#555", lineHeight: "1.6" }}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis nunc ut purus fermentum, 
-            non bibendum turpis porttitor. Nulla facilisi. Integer dictum nisi vitae elit malesuada, 
-            sit amet hendrerit urna interdum. Ut sed odio at elit mollis elementum et nec sapien.
-          </p>
+          
         </div>
       </div>
 
