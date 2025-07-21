@@ -4,7 +4,7 @@ This project allows users to find their local congressional representatives, ana
 
 ## Features
 
-- Fetch local representatives by ZIP code to identify congressional districts & current legislators via the Geocodio API  
+- Fetch local representatives by zipcode, identifying congressional districts & legislators via the Geocodio API  
 - Retrieve sponsored legislation & bill details for each representative or senator using the Congress.gov API  
 - Summarize political content using the Gemini API for quick, AI-generated overviews of bills or statements  
 - Store representative and bill data locally with SQLite and SQLAlchemy to enable caching and reduce API calls  
