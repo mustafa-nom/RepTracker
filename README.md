@@ -4,11 +4,12 @@ This project allows users to find their local congressional representatives, ana
 
 ## Features
 
-- Fetch representatives by ZIP code via GeoCodio API
-- Retrieve voting & statement data per representative
-- Summarize long political content using Gemini API
-- Utilizes SQLite (via SQLAlchemy) for easy local storage and future expansion
-- React frontend with API integration & real-time results
+- Fetch local representatives by ZIP code to identify congressional districts & current legislators via the Geocodio API  
+- Retrieve sponsored legislation & bill details for each representative or senator using the Congress.gov API  
+- Summarize political content using the Gemini API for quick, AI-generated overviews of bills or statements  
+- Store representative and bill data locally with SQLite and SQLAlchemy to enable caching and reduce API calls  
+- React frontend integrated with the Flask API for real-time display of legislative activity and summaries
+
 
 ## 🛠️ Setup Instructions
 1. clone the repo
