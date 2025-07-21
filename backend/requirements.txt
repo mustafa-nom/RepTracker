@@ -1,6 +1,7 @@
-Flask
-requests
-python-dotenv
-pygeocodio
-flask_cors
-flask_sqlalchemy
+Flask==3.0.0
+flask-cors==4.0.0
+flask-sqlalchemy==3.1.1
+requests==2.31.0
+python-dotenv==1.0.0
+pygeocodio==2.1.0
+SQLAlchemy==2.0
