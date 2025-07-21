@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify, render_template_string
-from models import Senator
+from models import db, Senator
+from markupsafe import Markup, escape
 
 senators_bp = Blueprint('senators', __name__)
 
@@ -13,14 +14,20 @@ def view_senator_photo():
     if not senator:
         return "Senator not found", 404
 
-
-    return render_template_string(f"""
+    # Safe template rendering with escaped variables
+    template = """
         <html>
-            <head><title>{senator.name} - Photo</title></head>
+            <head><title>{{ name }} - Photo</title></head>
             <body style="text-align: center; font-family: Arial;">
-                <h2>{senator.name} ({senator.party})</h2>
-                <p>{senator.state}</p>
-                <img src="{senator.photo_url}" alt="Senator Photo" style="max-height: 500px;" />
+                <h2>{{ name }} ({{ party }})</h2>
+                <p>{{ state }}</p>
+                <img src="{{ photo_url }}" alt="Senator Photo" style="max-height: 500px;" />
             </body>
         </html>
-    """)
+    """
+    
+    return render_template_string(template, 
+                                  name=senator.name,
+                                  party=senator.party,
+                                  state=senator.state,
+                                  photo_url=senator.photo_url)
