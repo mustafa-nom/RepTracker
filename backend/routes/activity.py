@@ -8,10 +8,16 @@ import logging
 activity_bp = Blueprint('activity', __name__)
 logger = logging.getLogger(__name__)
 
+
+'''
+Added caching because activity was taking too long
+This will remove any entry that hasnt been used in a while and replace it
+'''
 @lru_cache(maxsize=1000)
 def cached_bill_summary(congress, bill_type, bill_number):
     """Cache bill summaries to reduce API calls"""
     return get_bill_summary(congress, bill_type, bill_number)
+
 
 def process_legislator(legislator, max_bills=5, offset=0):
     """Process a single legislator's bills with a limit"""
@@ -73,6 +79,7 @@ def process_legislator(legislator, max_bills=5, offset=0):
                 if existing_bill:
                     bill["summary"] = "Previously cached - check database"
                 else:
+                    # Checks the cache for the bill
                     summary_text = "No summary available."
                     try:
                         summary_data = cached_bill_summary(congress, bill_type, bill_number)
@@ -83,8 +90,10 @@ def process_legislator(legislator, max_bills=5, offset=0):
                     except Exception as e:
                         logger.error(f"Failed to get summary for bill {bill_number}: {str(e)}")
                     
+                
                     bill["summary"] = summary_text
                     
+                    # Get the bill data
                     try:
                         bill_details = get_bill_details(congress, bill_type, bill_number)
                         if isinstance(bill_details, dict) and "error" not in bill_details:
@@ -94,6 +103,7 @@ def process_legislator(legislator, max_bills=5, offset=0):
                     except Exception as e:
                         logger.error(f"Failed to get bill details for {bill_number}: {str(e)}")
                     
+                    # Make a bill object with the given data and put it in the database and increase the size of the bills processes
                     try:
                         new_bill = Bill(
                             congress=str(congress),

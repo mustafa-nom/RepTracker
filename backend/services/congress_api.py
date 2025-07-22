@@ -6,10 +6,13 @@ def fetch_rep_activity(rep_id):
     if not rep_id:
         return {"error": "No representative ID provided"}
     
+    
+    # Use the congress API given the rep_id and the api key to fetch data
     try:
         url = f"https://api.congress.gov/v3/member/{rep_id}/sponsored-legislation?api_key={Config.CONGRESS_API_KEY}"
         response = requests.get(url, timeout=10)
         
+        # Status code error handling
         if response.status_code == 404:
             return {"error": f"Representative {rep_id} not found"}
         elif response.status_code != 200:
@@ -18,9 +21,11 @@ def fetch_rep_activity(rep_id):
         data = response.json()
         if not isinstance(data, dict):
             return {"error": "Invalid response format from Congress API"}
-            
-        return data
         
+        #return the data
+        return data
+    
+    # More error handling
     except requests.exceptions.Timeout:
         return {"error": "Congress API request timed out"}
     except requests.exceptions.RequestException as e:
@@ -33,10 +38,12 @@ def get_bill_summary(congress, billType, billNumber):
     if not all([congress, billType, billNumber]):
         return {"error": "Missing required parameters"}
     
+    # Use the Congress API to get bill data based on the congress, billtype, and billnumber
     try:
         url = f"https://api.congress.gov/v3/bill/{congress}/{billType}/{billNumber}/summaries?api_key={Config.CONGRESS_API_KEY}"
         response = requests.get(url, timeout=10)
         
+        # Status code error handling
         if response.status_code == 404:
             return {"summaries": []}
         elif response.status_code != 200:
@@ -45,9 +52,11 @@ def get_bill_summary(congress, billType, billNumber):
         data = response.json()
         if not isinstance(data, dict):
             return {"error": "Invalid response format from Congress API"}
-            
-        return data
         
+        # Return data
+        return data
+    
+    # More error handling
     except requests.exceptions.Timeout:
         return {"error": "Congress API request timed out"}
     except requests.exceptions.RequestException as e:
