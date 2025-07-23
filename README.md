@@ -11,7 +11,7 @@ This project allows users to find their local congressional representatives, ana
 - React frontend integrated with the Flask API for real-time display of legislative activity and summaries
 
 
-## 🛠️ Setup Instructions
+## Setup Instructions
 1. clone the repo
 ```bash
 git clone https://github.com/your-username/track-your-reps.git
@@ -28,7 +28,13 @@ venv\Scripts\activate           # Windows
 ```
 pip install -r requirements.txt
 ```
-4. Run the app
+4. To run the app, you must put the following in a `.env` file (Note: verify it's ignored in the .gitignore file):
+```
+GEOCODIO_API_KEY=api_key_here 
+GEMINI_API_KEY=api_key_here
+CONGRESS_API_KEY=api_key_here
+```
+5. Run the app
 ```
 python app.py
 ```
